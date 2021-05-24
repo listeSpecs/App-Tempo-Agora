@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  FAILED, IDLE, LOADING, SUCCEEDED
+  FAILED, IDLE, LOADING, SUCCEEDED,
 } from '../constants';
 
 const initialState = {
@@ -19,19 +19,6 @@ const cidadesSlice = createSlice({
     },
     desfazerCidade(state, action) {
       state.data = null;
-    },
-  },
-  extraReducers: {
-    [fetchConfiguracoesCidade.pending]: (state, action) => {
-      state.status = LOADING;
-    },
-    [fetchConfiguracoesCidade.fulfilled]: (state, action) => {
-      state.status = SUCCEEDED;
-      state.configuracoes = action.payload;
-    },
-    [fetchConfiguracoesCidade.rejected]: (state, action) => {
-      state.status = FAILED;
-      state.error = action.error.message;
     },
   },
 });
