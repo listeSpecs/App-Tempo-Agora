@@ -17,7 +17,9 @@ const cidadesSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     setOutCidade(state, action) {
-      state.data = null;
+      if (action.payload) {
+        state.data = state.data.filter(({ Endereco }) => Endereco !== action.payload.Endereco);
+      }
     },
     updateWeather(state, action) {
       state.data.map(({ Endereco }, index) => {

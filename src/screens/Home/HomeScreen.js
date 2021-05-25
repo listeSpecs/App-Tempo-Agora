@@ -90,9 +90,18 @@ const HomeScreen = () => {
 
         <Division size="8" />
 
-        {dataCity.data.length ? dataCity.data.map(({ Endereco, Cidade, Temperatura }) => (
+        {dataCity.data.length ? dataCity.data.map(({
+          Endereco, Cidade, Temperatura, Estado, Cep,
+        }) => (
           <View key={Endereco}>
-            <CityItem address={Endereco} city={Cidade} weather={Temperatura} />
+            <CityItem
+              address={Endereco}
+              city={Cidade}
+              weather={Temperatura}
+              onPress={() => navigation.navigate('Details', {
+                Endereco, Cidade, Estado, Cep,
+              })}
+            />
 
             <Division size="8" />
           </View>

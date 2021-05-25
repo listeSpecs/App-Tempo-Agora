@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { Bold, CityButton, Label, Row } from '../styles/base';
+import {
+  Bold, CityButton, Label, Row,
+} from '../styles/base';
 import NextSvg from '../../assets/icons/next.svg';
 import { grey, lightGrey } from '../styles/colors';
 
 const CityItem = ({
-  city, address, weather,
+  city, address, weather, onPress,
 }) => (
-  <CityButton>
+  <CityButton onPress={onPress}>
     <Row>
       <View style={{ alignSelf: 'center', paddingLeft: 4, paddingRight: 4 }}>
         <Bold color={grey} style={{ fontSize: 32 }}>
@@ -42,12 +44,14 @@ CityItem.propTypes = {
   city: PropTypes.string,
   address: PropTypes.string,
   weather: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
 CityItem.defaultProps = {
   city: null,
   address: null,
   weather: null,
+  onPress: null,
 };
 
 export default CityItem;

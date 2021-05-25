@@ -5,6 +5,8 @@ import {
   KeyboardAvoidingView, Platform, SafeAreaView,
 } from 'react-native';
 import { Provider } from 'react-redux';
+import persistStore from 'redux-persist/es/persistStore';
+import { PersistGate } from 'redux-persist/integration/react';
 import store from './src/app/store';
 import Loading from './src/components/Loading';
 import MainNavigator from './src/navigation/MainNavigator';
@@ -15,6 +17,7 @@ const customFonts = {
 };
 
 const App = () => {
+  const persistor = persistStore(store);
   const [isLoading] = useFonts(customFonts);
 
   if (!isLoading) {
@@ -30,7 +33,9 @@ const App = () => {
         enabled
       >
         <Provider store={store}>
-          <MainNavigator />
+          <PersistGate loading={<Loading />} persistor={persistor}>
+            <MainNavigator />
+          </PersistGate>
         </Provider>
       </KeyboardAvoidingView>
     </SafeAreaView>

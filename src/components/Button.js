@@ -3,7 +3,7 @@ import React from 'react';
 import { Touchable, TouchableOpacity } from 'react-native';
 import AddSvg from '../../assets/icons/add.svg';
 import { ButtonForm, Division, Label } from '../styles/base';
-import { lightGrey } from '../styles/colors';
+import { errorColor, lightGrey } from '../styles/colors';
 
 const Button = ({
   type, onPress, style, label,
@@ -22,6 +22,14 @@ const Button = ({
 
         <Label style={{ alignSelf: 'center' }} color={lightGrey}>INCLUIR NOVA CIDADE</Label>
       </TouchableOpacity>
+    );
+  }
+
+  if (type === 'delete') {
+    return (
+      <ButtonForm backgroundColor={errorColor} onPress={onPress}>
+        <Label color="#fff">{label}</Label>
+      </ButtonForm>
     );
   }
 

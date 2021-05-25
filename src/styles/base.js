@@ -1,3 +1,4 @@
+import { TextInputMask } from 'react-native-masked-text';
 import styled from 'styled-components';
 import { brandColor, grey, lightGrey } from './colors';
 
@@ -52,12 +53,12 @@ export const CityButton = styled.TouchableOpacity`
 
 export const ButtonForm = styled.TouchableOpacity`
   padding: 16px;
-  background-color: ${brandColor};
+  background-color: ${({ backgroundColor }) => (backgroundColor || brandColor)}
   border-radius: 8px;
   align-items: center;
 `;
 
-export const InputForm = styled.TextInput`
+export const InputForm = styled(TextInputMask)`
   background-color: #FFFFFF;
   border: 0 ${lightGrey};
   color: ${grey};
@@ -71,4 +72,14 @@ export const Center = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+
+export const Window = styled.View`
+  shadow-color: #000;
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.4;
+  shadow-radius: 2px;
+  elevation: 3;
+  border-radius: 8px;
+  padding: 18px 24px;
 `;
