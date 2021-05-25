@@ -16,7 +16,7 @@ ou
 yarn global add expo-cli
 ```
 
-Após ter realizado a instação do Expo, baixe o projeto em sua máquina e instale sua dependências através do comando:
+Após ter realizado a instalação do Expo, baixe o projeto em sua máquina e instale sua dependências através do comando:
 
 ```bash
 npm install
