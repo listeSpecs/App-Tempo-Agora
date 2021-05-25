@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { brandColor } from './colors';
+import { brandColor, grey, lightGrey } from './colors';
 
 export const ScrollContainer = styled.ScrollView`
 flex-direction: ${({ horizontal }) => (
@@ -42,4 +42,21 @@ export const CityButton = styled.TouchableOpacity`
   border-left-width: 8px;
   border-radius: 8px;
   padding: 18px 8px;
+`;
+
+export const ButtonForm = styled.TouchableOpacity`
+  padding: 16px;
+  background-color: ${brandColor};
+  border-radius: 8px;
+  align-items: center;
+`;
+
+export const InputForm = styled.TextInput`
+  background-color: #FFFFFF;
+  border: 0 ${lightGrey};
+  color: ${grey};
+  font-weight: bold;
+  border-bottom-width: 1px;
+  flex: 1;
+  font-size: 42px;
 `;

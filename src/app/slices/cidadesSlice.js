@@ -5,7 +5,6 @@ import {
 
 const initialState = {
   data: null,
-  configuracoes: null,
   status: IDLE,
   error: null,
 };
@@ -14,10 +13,10 @@ const cidadesSlice = createSlice({
   name: 'cidades',
   initialState,
   reducers: {
-    definirCidade(state, action) {
+    setInCidade(state, action) {
       state.data = action.payload;
     },
-    desfazerCidade(state, action) {
+    setOutCidade(state, action) {
       state.data = null;
     },
   },
@@ -25,6 +24,6 @@ const cidadesSlice = createSlice({
 
 export const selectCidade = (state) => state.cidades;
 
-export const { definirCidade } = cidadesSlice.actions;
+export const { setInCidade, setOutCidade } = cidadesSlice.actions;
 
 export default cidadesSlice.reducer;
