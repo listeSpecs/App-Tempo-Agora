@@ -20,18 +20,6 @@ const HomeScreen = () => {
 
   console.log(dataCity);
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-
-    /*
-    if (dataCity.data.length) {
-      apiWeather(dataCity.data.Cidade, dataCity.data.Estado).then((resp) => setWeather(resp.results.condition_code));
-    }
-    */
-
-    setRefreshing(false);
-  };
-
   const getTime = () => {
     const date = new Date();
 
@@ -45,8 +33,22 @@ const HomeScreen = () => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+
+    setTime(getTime());
+
+    /*
+    if (dataCity.data.length) {
+      apiWeather(dataCity.data.Cidade, dataCity.data.Estado).then((resp) => setWeather(resp.results.condition_code));
+    }
+    */
+
+    setRefreshing(false);
+  };
+
   useEffect(() => {
-    const interval = setInterval(() => setTime(getTime()), 2000);
+    const interval = setInterval(() => setTime(getTime()), 60000);
 
     return () => {
       clearInterval(interval);
@@ -86,9 +88,9 @@ const HomeScreen = () => {
 
         <Division size="8" />
 
-        {dataCity.data.length ? dataCity.data.map(({ Endereco, Cidade }) => (
+        {dataCity.data.length ? dataCity.data.map(({ Endereco, Cidade, Temperatura }) => (
           <>
-            <CityItem address={Endereco} city={Cidade} weather="teste" />
+            <CityItem address={Endereco} city={Cidade} weather={Temperatura} />
 
             <Division size="8" />
           </>

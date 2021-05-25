@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import apiCep from '../../api/apiCep';
+import apiWeather from '../../api/apiWeather';
 import { setInCidade } from '../../app/slices/cidadesSlice';
 import Button from '../../components/Button';
 import {
@@ -17,26 +18,40 @@ const defaultValues = {
 
 const NewCityScreen = () => {
   const [values, setValues] = useState(defaultValues);
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
   const addCity = async () => {
-    const resp = await apiCep(values.Cep);
+    setIsLoading(true);
 
-    if (resp.erro) {
-      return console.log('Tratar erro');
+    const respCep = await apiCep(values.Cep);
+    const respWeather = await apiWeather(respCep.localidade, respCep.uf);
+
+    if (respCep.erro) {
+      setIsLoading(false);
+      return Alert.alert(
+        'Atenção',
+        'Cep não encontrado.',
+      );
     }
 
     dispatch(setInCidade({
-      Cidade: resp.localidade,
-      Endereco: resp.logradouro,
-      Cep: resp.cep,
-      Estado: resp.uf,
+      Cidade: respCep.localidade,
+      Endereco: respCep.logradouro,
+      Cep: respCep.cep,
+      Estado: respCep.uf,
+      Temperatura: respWeather.results.condition_code,
     }));
 
+    setIsLoading(false);
     return navigation.navigate('Home');
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <ScrollContainer contentContainerStyle={{ flexGrow: 1 }}>

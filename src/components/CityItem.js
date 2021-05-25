@@ -7,40 +7,36 @@ import { grey, lightGrey } from '../styles/colors';
 
 const CityItem = ({
   city, address, weather,
-}) => {
-  const a = 'b';
-
-  return (
-    <CityButton>
-      <Row>
-        <View style={{ alignSelf: 'center', paddingLeft: 4, paddingRight: 4 }}>
-          <Label color={grey} style={{ fontSize: 32, fontWeight: 'bold' }}>
-            {weather}
-            °
-          </Label>
-        </View>
-        <View style={{
-          flex: 1, alignSelf: 'center', paddingLeft: 8, paddingRight: 8,
-        }}
-        >
-          <Label bold color={grey}>{city}</Label>
-          <Label color={lightGrey}>{address}</Label>
-        </View>
-        <View style={{
-          alignSelf: 'center', alignItems: 'flex-end', paddingLeft: 4, paddingRight: 4,
-        }}
-        >
-          <NextSvg
-            width={20}
-            height={20}
-            style={{ alignSelf: 'center' }}
-            fill={lightGrey}
-          />
-        </View>
-      </Row>
-    </CityButton>
-  );
-};
+}) => (
+  <CityButton>
+    <Row>
+      <View style={{ alignSelf: 'center', paddingLeft: 4, paddingRight: 4 }}>
+        <Label color={grey} bold style={{ fontSize: 32 }}>
+          {weather}
+          °
+        </Label>
+      </View>
+      <View style={{
+        flex: 1, alignSelf: 'center', paddingLeft: 8, paddingRight: 8,
+      }}
+      >
+        <Label bold color={grey}>{city}</Label>
+        <Label color={lightGrey}>{address}</Label>
+      </View>
+      <View style={{
+        alignSelf: 'center', alignItems: 'flex-end', paddingLeft: 4, paddingRight: 4,
+      }}
+      >
+        <NextSvg
+          width={20}
+          height={20}
+          style={{ alignSelf: 'center' }}
+          fill={lightGrey}
+        />
+      </View>
+    </Row>
+  </CityButton>
+);
 
 CityItem.propTypes = {
   city: PropTypes.string,
