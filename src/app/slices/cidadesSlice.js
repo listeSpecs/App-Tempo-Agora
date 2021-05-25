@@ -4,7 +4,7 @@ import {
 } from '../constants';
 
 const initialState = {
-  data: null,
+  data: [],
   status: IDLE,
   error: null,
 };
@@ -14,7 +14,7 @@ const cidadesSlice = createSlice({
   initialState,
   reducers: {
     setInCidade(state, action) {
-      state.data = action.payload;
+      state.data = [...state.data, action.payload];
     },
     setOutCidade(state, action) {
       state.data = null;

@@ -9,6 +9,7 @@ import {
   Container, Division, InputForm, Label, ScrollContainer, Title,
 } from '../../styles/base';
 import { lightGrey } from '../../styles/colors';
+import { cep } from '../../util/masks';
 
 const defaultValues = {
   Cep: '',
@@ -49,7 +50,7 @@ const NewCityScreen = () => {
           <Label color={lightGrey}>Digite o Cep da cidade</Label>
 
           <InputForm
-            value={values.Cep}
+            value={values.Cep && cep(values.Cep)}
             onChangeText={(val) => setValues({
               ...values,
               Cep: val,
