@@ -1,11 +1,11 @@
-export const replaceEspeciais = (str) => {
+export const replaceEspecials = (str) => {
   if (str === null) {
     return '';
   }
 
-  const especiais = [
+  const especials = [
     { char: '', base: /[./_@+=() R$-]/g },
   ];
 
-  return especiais.reduce((str, letter) => str.replace(letter.base, letter.char), str);
+  return especials.reduce((str, letter) => str.replace(letter.base, letter.char), str);
 };

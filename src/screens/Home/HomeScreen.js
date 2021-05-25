@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { RefreshControl } from 'react-native';
-import { useSelector } from 'react-redux';
+import { RefreshControl, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import apiWeather from '../../api/apiWeather';
-import { selectCidade } from '../../app/slices/cidadesSlice';
+import { selectCidade, updateWeather } from '../../app/slices/cidadesSlice';
 import Button from '../../components/Button';
 import CityItem from '../../components/CityItem';
+import Loading from '../../components/Loading';
 import {
   Container, Division, Label, Row, ScrollContainer, Title,
 } from '../../styles/base';
@@ -13,12 +14,11 @@ import { lightGrey } from '../../styles/colors';
 
 const HomeScreen = () => {
   const dataCity = useSelector(selectCidade);
-  const [weather, setWeather] = useState(null);
   const [time, setTime] = useState(null);
-  const [refreshing, setRefreshing] = useState(false);
-  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log(dataCity);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const getTime = () => {
     const date = new Date();
@@ -33,40 +33,42 @@ const HomeScreen = () => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-
+  const refresh = () => {
     setTime(getTime());
 
-    /*
-    if (dataCity.data.length) {
-      apiWeather(dataCity.data.Cidade, dataCity.data.Estado).then((resp) => setWeather(resp.results.condition_code));
-    }
-    */
+    return dataCity.data.length && dataCity.data.map(({ Cidade, Estado, Endereco }) => apiWeather(Cidade, Estado).then((resp) => dispatch(updateWeather({
+      Endereco,
+      Temperatura: resp.results.condition_code,
+    }))));
+  };
 
-    setRefreshing(false);
+  const onRefresh = async () => {
+    setIsLoading(true);
+
+    refresh();
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(getTime()), 60000);
+    refresh();
+
+    const interval = setInterval(() => refresh(), 60000);
 
     return () => {
       clearInterval(interval);
     };
-    /*
-      if (dataCity.data.length) {
-        apiWeather(dataCity.data.Cidade, dataCity.data.Estado).then((resp) => setWeather(resp.results.condition_code));
-      }
-    */
   }, [dataCity.data]);
 
-  console.log(time);
+  if (isLoading) {
+    return (<Loading />);
+  }
 
   return (
     <ScrollContainer
       refreshControl={(
         <RefreshControl
-          refreshing={refreshing}
+          refreshing={isLoading}
           onRefresh={onRefresh}
         />
       )}
@@ -89,11 +91,11 @@ const HomeScreen = () => {
         <Division size="8" />
 
         {dataCity.data.length ? dataCity.data.map(({ Endereco, Cidade, Temperatura }) => (
-          <>
+          <View key={Endereco}>
             <CityItem address={Endereco} city={Cidade} weather={Temperatura} />
 
             <Division size="8" />
-          </>
+          </View>
         )) : null}
 
         <Division size="14" />

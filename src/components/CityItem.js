@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { CityButton, Label, Row } from '../styles/base';
+import { Bold, CityButton, Label, Row } from '../styles/base';
 import NextSvg from '../../assets/icons/next.svg';
 import { grey, lightGrey } from '../styles/colors';
 
@@ -11,16 +11,16 @@ const CityItem = ({
   <CityButton>
     <Row>
       <View style={{ alignSelf: 'center', paddingLeft: 4, paddingRight: 4 }}>
-        <Label color={grey} bold style={{ fontSize: 32 }}>
+        <Bold color={grey} style={{ fontSize: 32 }}>
           {weather}
           °
-        </Label>
+        </Bold>
       </View>
       <View style={{
         flex: 1, alignSelf: 'center', paddingLeft: 8, paddingRight: 8,
       }}
       >
-        <Label bold color={grey}>{city}</Label>
+        <Bold color={grey}>{city}</Bold>
         <Label color={lightGrey}>{address}</Label>
       </View>
       <View style={{

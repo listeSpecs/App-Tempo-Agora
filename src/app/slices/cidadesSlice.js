@@ -19,11 +19,18 @@ const cidadesSlice = createSlice({
     setOutCidade(state, action) {
       state.data = null;
     },
+    updateWeather(state, action) {
+      state.data.map(({ Endereco }, index) => {
+        if (Endereco === action.payload.Endereco) {
+          state.data[index].Temperatura = action.payload.Temperatura;
+        }
+      });
+    },
   },
 });
 
 export const selectCidade = (state) => state.cidades;
 
-export const { setInCidade, setOutCidade } = cidadesSlice.actions;
+export const { setInCidade, setOutCidade, updateWeather } = cidadesSlice.actions;
 
 export default cidadesSlice.reducer;

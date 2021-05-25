@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { brandColor, grey, lightGrey } from './colors';
 
 export const ScrollContainer = styled.ScrollView`
-flex-direction: ${({ horizontal }) => (
+  flex-direction: ${({ horizontal }) => (
     horizontal ? 'row' : 'column'
   )};
 `;
@@ -14,7 +14,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   font-size: 32px;
   color: #000;
-  font-weight: bold;
+  font-family: 'MontserratBold';
 `;
 
 export const Division = styled.View`
@@ -23,9 +23,15 @@ export const Division = styled.View`
 `;
 
 export const Label = styled.Text`
-  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')}
   font-size: 16px;
   color: ${({ color }) => (color || '#000')}
+  font-family: 'Montserrat';
+`;
+
+export const Bold = styled.Text`
+  font-family: 'MontserratBold';
+  color: ${({ color }) => (color || '#000')}
+  font-size: 16px;
 `;
 
 export const Row = styled.View`
@@ -59,4 +65,10 @@ export const InputForm = styled.TextInput`
   border-bottom-width: 1px;
   flex: 1;
   font-size: 42px;
+`;
+
+export const Center = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;

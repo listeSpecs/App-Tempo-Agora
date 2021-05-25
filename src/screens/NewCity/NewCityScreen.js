@@ -6,11 +6,13 @@ import apiCep from '../../api/apiCep';
 import apiWeather from '../../api/apiWeather';
 import { setInCidade } from '../../app/slices/cidadesSlice';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 import {
   Container, Division, InputForm, Label, ScrollContainer, Title,
 } from '../../styles/base';
 import { lightGrey } from '../../styles/colors';
 import { cep } from '../../util/masks';
+import { replaceEspecials } from '../../util/stringFactory';
 
 const defaultValues = {
   Cep: '',
@@ -26,16 +28,25 @@ const NewCityScreen = () => {
   const addCity = async () => {
     setIsLoading(true);
 
-    const respCep = await apiCep(values.Cep);
-    const respWeather = await apiWeather(respCep.localidade, respCep.uf);
+    if (values.Cep.length !== 9) {
+      setIsLoading(false);
+      return Alert.alert(
+        'Atenção',
+        'Você não digitou seu CEP completo.',
+      );
+    }
+
+    const respCep = await apiCep(replaceEspecials(values.Cep));
 
     if (respCep.erro) {
       setIsLoading(false);
       return Alert.alert(
         'Atenção',
-        'Cep não encontrado.',
+        'CEP não encontrado.',
       );
     }
+
+    const respWeather = await apiWeather(respCep.localidade, respCep.uf);
 
     dispatch(setInCidade({
       Cidade: respCep.localidade,
@@ -50,7 +61,9 @@ const NewCityScreen = () => {
   };
 
   if (isLoading) {
-    return null;
+    return (
+      <Loading />
+    );
   }
 
   return (
