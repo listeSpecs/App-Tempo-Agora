@@ -32,7 +32,7 @@ const HomeScreen = () => {
     setRefreshing(false);
   };
 
-  const teste = () => {
+  const getTime = () => {
     const date = new Date();
 
     const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -46,7 +46,7 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(teste()), 2000);
+    const interval = setInterval(() => setTime(getTime()), 2000);
 
     return () => {
       clearInterval(interval);
